@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Glegoo:400');
+body{
+  font-family: 'Glegoo', Georgia, serif;
+  font-weight: 400;
+  color: #323135;
+}
+h1, h2, h3, h4, h5, h6{
+  font-weight: 400;
+}
+.exp-color{
+  color: #f2a897;
+}
+.exp-color-lt{
+  color: #f7e2dd;
+}
+.exp-bg-color-lt{
+  background-color: #f7e2dd;
+}
+.inc-color{
+  color: #beadee;
+}
+.inc-border-color{
+  border-color: #beadee;
+}
+.inc-color-lt{
+  color: #e6e1f4;
+}
+.inc-bg-color-lt{
+  background-color: #e6e1f4;
+}
+#budget-totals {
+  position: absolute;
+  z-index: 1;
+  background-color: #fff;
+  padding: 30px;
+}
+#total-budget{
+  font-size: 3rem;
+  margin: 15px 0;
+}
+#total-inc, #total-exp{
+  padding: 10px;
+}
+#add{
+  margin-top: 40px;
+}
+#add-type {
+  max-width: 15%;
+  margin-right: 5%;
+  float: left;
+  padding: .25rem .75rem;
+}
+#add-amount{
+  max-width: 80%;
+  float: left;
+}
+.form-control{
+  margin-bottom: 20px;
+}
+.fa.fa-check-square{
+  font-size: 36px;
+}
+#data-container > div{
+  padding: 30px;
+}
+.item{
+  background-color: #fff;
+  padding: 15px;
+  margin-top: 20px;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+.item .fa.fa-times{
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.item:hover{
+  padding-top: 40px;
+}
+.item:hover .fa.fa-times{
+  display: block;
+  opacity: .5;
+}

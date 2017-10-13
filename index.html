@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Pure JavaScript Budget App by Antonina Serdyukova</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row justify-content-lg-center">
+        <div id="budget-totals" class="col-lg-4 text-center">
+          <h1>Budget It!</h1>
+          <h2 id="total-budget">1000</h2>
+          <h3 id="total-inc" class="inc-bg-color-lt">+ 1500</h3>
+          <h3 id="total-exp" class="exp-bg-color-lt">- 500</h3>
+          <div id="add">
+            <select id="add-type"class="form-control inc-border-color">
+              <option value="inc">+</option>
+              <option value="exp">-</option>
+            </select>
+            <input type="number" id="add-amount" class="form-control inc-border-color" value="" placeholder="Amount">
+            <input type="text" id="add-desc" class="form-control inc-border-color" value="" placeholder="Description">
+            <i id="add-new" class="fa fa-check-square inc-color" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div id="data-container" class="row">
+        <div class="col-lg-6 inc-bg-color-lt text-left">
+          <h2>Income</h2>
+          <div id="inc-items" class="row">
+            <div class="item col-md-7">
+              <div class="row">
+                <div class="col-8 desc">
+                  Salary
+                </div>
+                <div class="col-4 amount text-right">
+                  + 1,000.00
+                </div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="item col-md-7">
+              <div class="row">
+                <div class="col-8 desc">
+                  Project
+                </div>
+                <div class="col-4 amount text-right">
+                  + 500.00
+                </div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 exp-bg-color-lt">
+          <h2 class="text-right">Expenses</h2>
+          <div id="exp-items" class="row">
+            <div class="item col-md-7 ml-md-auto">
+              <div class="row">
+                <div class="col-8 desc">
+                  Car Insurance
+                </div>
+                <div class="col-4 amount text-right">
+                  - 100.00
+                </div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="item col-md-7 ml-md-auto">
+              <div class="row">
+                <div class="col-8 desc">
+                  Rent
+                </div>
+                <div class="col-4 amount text-right">
+                  - 400.00
+                </div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- close container-fluid -->
+
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/01039dafd9.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/script.js" type="text/javascript"></script>
+  </body>
+</html>
