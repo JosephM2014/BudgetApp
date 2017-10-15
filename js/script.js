@@ -122,9 +122,12 @@ var UIController = (function(){
       document.getElementById(selectors.addAmount).focus();
     },
     displayTotals: function(totals){
-      document.getElementById(selectors.totalBudget).innerHTML = totals.budget;
-      document.getElementById(selectors.totalIncome).innerHTML = totals.inc;
-      document.getElementById(selectors.totalExpenses).innerHTML = totals.exp;
+      var sign;
+      totals.budget > 0 ? sign = '+ ' : sign = '- ';
+      if(totals.budget === 0){sign = ''};
+      document.getElementById(selectors.totalBudget).innerHTML = sign + Math.abs(totals.budget);
+      document.getElementById(selectors.totalIncome).innerHTML = '+ ' + totals.inc;
+      document.getElementById(selectors.totalExpenses).innerHTML = '- ' + totals.exp;
     }
   }
 
