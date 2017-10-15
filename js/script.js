@@ -128,6 +128,30 @@ var UIController = (function(){
       document.getElementById(selectors.totalBudget).innerHTML = sign + Math.abs(totals.budget);
       document.getElementById(selectors.totalIncome).innerHTML = '+ ' + totals.inc;
       document.getElementById(selectors.totalExpenses).innerHTML = '- ' + totals.exp;
+    },
+    changeInputBorderColor: function(){
+      var type = document.getElementById(selectors.addType).value;
+      var elements = document.getElementsByClassName('form-control');
+      var icon = document.getElementById(selectors.addNewItem);
+      if(type === 'inc'){
+        // workaround the looping through the dom array return from getElementsByClassName
+        Array.prototype.forEach.call(elements, function(current){
+          current.classList.remove('exp-border-color');
+          current.classList.add('inc-border-color');
+        });
+        // change the add button icon color
+        icon.classList.remove('exp-color');
+        icon.classList.add('inc-color');
+      }
+      else if(type === 'exp'){
+        Array.prototype.forEach.call(elements, function(current){
+          current.classList.remove('inc-border-color');
+          current.classList.add('exp-border-color');
+        });
+        // change the add button icon color
+        icon.classList.remove('inc-color');
+        icon.classList.add('exp-color');
+      }
     }
   }
 
@@ -146,6 +170,10 @@ var Controller = (function(AppCtrl, UICtrl) {
       if (event.keyCode === 13 || event.which === 13) {
           handleNewItem();
       }
+    });
+    // also make the border color of the input fields correspond to the type of the input
+    document.getElementById(selectors.addType).addEventListener('change', function(){
+      UICtrl.changeInputBorderColor();
     });
   }
 
