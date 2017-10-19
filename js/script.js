@@ -6,7 +6,7 @@ var AppController = (function(){
     this.amount = amount;
     this.desc = desc;
   };
-
+  // data storage object
   var data = {
     all: {
       inc: [],
@@ -52,6 +52,14 @@ var AppController = (function(){
     },
     getTotals: function(){
       return data.totals;
+    },
+    deleteItem: function(type, id){
+      // loop through the inc or exp array and delete the item with this id
+      data.all[type].forEach(function(current, index, array){
+        if(current.id === parseInt(id)){
+          array.splice(index, 1);
+        }
+      })
     },
     testData: function(){
       return data;
@@ -108,7 +116,8 @@ var UIController = (function(){
       html = html.replace('@id@', item.id);
       html = html.replace('@desc@', item.desc);
       html = html.replace('@sign@', sign);
-      html = html.replace('@amount@', item.amount);
+      // round the amount to 2 decimal places
+      html = html.replace('@amount@', parseFloat(Math.round(item.amount * 100) / 100).toFixed(2));
       // append the item to the DOM
       el.insertAdjacentHTML('beforeend', html);
       // add bootstrap class to the exp item to align to the right
@@ -119,15 +128,17 @@ var UIController = (function(){
     clearFields: function(){
       document.getElementById(selectors.addAmount).value = '';
       document.getElementById(selectors.addDesc).value = '';
+      // set focus on the amount feild again
       document.getElementById(selectors.addAmount).focus();
     },
     displayTotals: function(totals){
       var sign;
       totals.budget > 0 ? sign = '+ ' : sign = '- ';
       if(totals.budget === 0){sign = ''};
-      document.getElementById(selectors.totalBudget).innerHTML = sign + Math.abs(totals.budget);
-      document.getElementById(selectors.totalIncome).innerHTML = '+ ' + totals.inc;
-      document.getElementById(selectors.totalExpenses).innerHTML = '- ' + totals.exp;
+      // round the numbers to 2 decimal places
+      document.getElementById(selectors.totalBudget).innerHTML = sign + Math.abs(parseFloat(Math.round(totals.budget * 100) / 100).toFixed(2));
+      document.getElementById(selectors.totalIncome).innerHTML = '+ ' + parseFloat(Math.round(totals.inc * 100) / 100).toFixed(2);
+      document.getElementById(selectors.totalExpenses).innerHTML = '- ' + parseFloat(Math.round(totals.exp * 100) / 100).toFixed(2);
     },
     changeInputBorderColor: function(){
       var type = document.getElementById(selectors.addType).value;
@@ -171,10 +182,43 @@ var Controller = (function(AppCtrl, UICtrl) {
           handleNewItem();
       }
     });
-    // also make the border color of the input fields correspond to the type of the input
+    // also make the border color of the input fields correspond to the type of the input: income color for + and expenses color for -
     document.getElementById(selectors.addType).addEventListener('change', function(){
       UICtrl.changeInputBorderColor();
     });
+    // handle delete item by its id: catch click on the parent element
+    document.getElementById('data-container').addEventListener('click', function(event){
+      // delete the item from the data and the DOM
+      // if the element clicked is the delete icon (class fa-times)
+      if(event.srcElement.classList.contains('fa-times')){
+        // find the item in the DOM and determine what kind of an item it is: 'inc' or 'exp'
+        var itemElement = findAncestor(event.srcElement, 'item');
+        if(itemElement !== null){
+          var id = itemElement.id;
+          id = id.split('-');
+          // see if the id starts with 'inc' or 'exp' and call the AppController function delete passing the type and id of the item
+          if(id[0] === 'inc'){
+            AppCtrl.deleteItem('inc', id[1]);
+          }
+          else if(id[0] === 'exp'){
+            AppCtrl.deleteItem('exp', id[1]);
+          }
+          // delete this item from the DOM
+          itemElement.parentNode.removeChild(itemElement);
+        }
+      }
+      // re-calculate the budget
+      AppCtrl.calculateTotals();
+      // display new budget totals
+      var totals = AppCtrl.getTotals();
+      UICtrl.displayTotals(totals);
+    });
+  }
+
+  var findAncestor = function (el, cls) {
+    // traverse DOM upwards from element el till we find an element with class cls and return this element
+    while ((el = el.parentElement) && !el.classList.contains(cls));
+    return el;
   }
 
   var handleNewItem = function(){
