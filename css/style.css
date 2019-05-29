@@ -14,7 +14,9 @@ h1, h2, h3, h4, h5, h6{
   color: #f7e2dd;
 }
 .exp-bg-color-lt{
-  background-color: #f7e2dd;
+  /* background-color: #f7e2dd; */
+  background-color: darkorange;
+
 }
 .exp-border-color{
   border-color: #f2a897;
@@ -29,7 +31,9 @@ h1, h2, h3, h4, h5, h6{
   color: #e6e1f4;
 }
 .inc-bg-color-lt{
-  background-color: #e6e1f4;
+  /* background-color: #e6e1f4; */
+  background-color: forestgreen;
+  
 }
 #budget-totals {
   position: absolute;
